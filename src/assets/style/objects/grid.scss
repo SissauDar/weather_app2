@@ -1,0 +1,27 @@
+/*
+      Objects: Grid
+      ---
+      Creates a grid with a gap
+  */
+
+.o-grid {
+  display: grid;
+  grid-gap: var(--whitespace-lg);
+  margin-bottom: var(--whitespace-md);
+}
+
+.o-grid__item {
+  box-shadow: var(--box-shadow);
+  background-color: #fff;
+  padding: var(--whitespace-md) var(--whitespace-md) 0;
+}
+
+@media screen and (min-width: 992px) {
+  .o-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .o-grid__item {
+    grid-column: 1 / -1;
+  }
+}

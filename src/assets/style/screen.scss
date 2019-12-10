@@ -1,0 +1,26 @@
+// Settings
+@import "./settings/global.scss";
+@import "./settings/fonts.scss";
+
+// Tools
+
+// Generic
+@import "./generic/reset.scss";
+@import "./generic/page.scss";
+
+// Elements
+
+@import "./elements/defaultTypography.scss";
+@import "./elements/images.scss";
+
+// Objects
+@import "./objects/container.scss";
+@import "./objects/hide-accessible.scss";
+@import "./objects/layout.scss";
+// Components
+// Proberen we in te laden gekoppeld aan de HTML.
+
+// Utilities
+@import "./utilities/width.scss";
+@import "./utilities/maxwidth.scss";
+@import "./utilities/align.scss";

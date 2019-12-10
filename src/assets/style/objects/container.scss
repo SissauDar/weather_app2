@@ -1,0 +1,11 @@
+/*
+      Objects: Container
+      ---
+      Creates a horizontal container that sets de global max-width
+  */
+.o-container {
+  margin: 0 auto;
+  max-width: calc(var(--width-site) / 16px);
+  /* 67.5 * 16px = 1080 */
+  width: 100%;
+}

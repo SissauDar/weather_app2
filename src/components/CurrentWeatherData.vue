@@ -1,15 +1,24 @@
 <template>
-  <div class="about">
-    <Section class="o-row--lg">
-      <Container>
-        <h1>Soon my friend...</h1>
-      </Container>
-    </Section>
-    <Section class="o-row--lg">
-      <Container>
-        <h1 class="c-todo">To do.</h1>
-      </Container>
-    </Section>
+  <div class="c-currentWeather">
+    <h1>{{ roundTemp }}°</h1>
+    <h2>
+      {{ data.name }}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="25.456"
+        height="25.456"
+        viewBox="0 0 25.456 25.456"
+      >
+        <path
+          id="Path_1"
+          data-name="Path 1"
+          d="M7.5,0,15,21,7.5,13.5,0,21Z"
+          transform="translate(14.849) rotate(45)"
+          fill="#fff"
+        />
+      </svg>
+    </h2>
+    <h3>Now</h3>
   </div>
 </template>
 
@@ -19,10 +28,10 @@ import Section from "@/components/layout/Section";
 import Row from "@/components/layout/Row";
 import Container from "@/components/layout/Container";
 export default {
-  name: "about",
+  name: "currentWeatherData",
 
   components: {
-    Section,
+    Row,
     Container
   },
 
@@ -33,7 +42,7 @@ export default {
   },
 
   props: {
-    msg: String
+    data: Object
   },
 
   // Components are ready to get data.
@@ -42,8 +51,8 @@ export default {
 
   // #2 State gets rendered and is callable with computed function thats calls the store.
   computed: {
-    getComputedTestFunction: function() {
-      return "hey";
+    roundTemp: function() {
+      return Math.round(this.data.main.temp);
     }
   },
 
@@ -64,14 +73,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.c-todo {
-  text-align: right;
-}
-.about {
-  // height: calc(100vh - 56px);
-  // height: -o-calc(100% - 65px); /* opera */
-  // height: -webkit-calc(100% - 65px); /* google, safari */
-  // height: -moz-calc(100% - 65px); /* firefox */
-}
-</style>
+<style lang="scss" scoped></style>

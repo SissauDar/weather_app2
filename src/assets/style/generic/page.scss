@@ -6,19 +6,19 @@
 
 html,
 body {
-  font: 16px / 1.5 -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font: 16px / 1.5 "IBM Plex Sans", system-ui, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   //   Shorthand voor
   //   Font size
   // Line-height
   //  Font-family
   color: $global-textColor;
-  background: $global-backgroundColor;
+  background: var(--background-color);
   margin: 0 auto;
   // overflow: scroll;
   box-sizing: border-box;
   min-height: 100%;
-  overflow: auto;
+  overflow: hidden;
 }
 
 *,

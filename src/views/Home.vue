@@ -74,11 +74,7 @@ export default {
   data() {
     return {
       open: false,
-      colors: {
-        Clouds: "#00B4E6",
-        Sunny: "#10CCFF",
-        Rain: "#005DA5"
-      }
+      location: null
     };
   },
 
@@ -86,9 +82,18 @@ export default {
 
   // Components are ready to get data.
   // # Action gets started with dispatch.
-  created() {
-    const payload = { randomId: 0 };
-    this.$store.dispatch("getWeather", payload);
+  async created() {
+    this.$store.dispatch("getLocation").then(
+      response => {
+        console.log(JSON.stringify(response));
+        this.location = response;
+        this.$store.dispatch("getWeather", response);
+        this.$store.dispatch("getWeatherForecast", response);
+      },
+      error => {
+        console.error(`Foutje van de firma: ${error}`);
+      }
+    );
   },
 
   // #2 State gets rendered and is callable with computed function thats calls the store.
@@ -98,6 +103,10 @@ export default {
     },
     getCurrentWeatherForecast: function() {
       return this.$store.getters.currentWeatherForecast;
+    },
+    getLocation: function() {
+      console.log("nu pas" + this.$store.getters.location.lat);
+      return this.$store.getters.location.lat;
     }
   },
 
@@ -108,14 +117,9 @@ export default {
     }
   },
 
-  mounted() {
-    // this.timerId = setInterval(() => {
-    // }, 1000);
-  },
+  mounted() {},
 
-  unmounted() {
-    // clearInterval(this.timerId);
-  }
+  unmounted() {}
 };
 </script>
 

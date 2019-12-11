@@ -7,11 +7,13 @@ export default new Vuex.Store({
   state: {
     currentWeather: null,
     currentWeatherForecast: null,
-    appId: "4711dd3a050971833741b368b6dcff60"
+    appId: "4711dd3a050971833741b368b6dcff60",
+    location: {}
   },
   getters: {
     currentWeather: state => state.currentWeather,
-    currentWeatherForecast: state => state.currentWeatherForecast
+    currentWeatherForecast: state => state.currentWeatherForecast,
+    location: state => state.location
   },
   mutations: {
     setCurrentWeather: function (state, payload) {
@@ -19,6 +21,9 @@ export default new Vuex.Store({
     },
     setCurrentWeatherForecast: function (state, payload) {
       state.currentWeatherForecast = payload;
+    },
+    setLocation: function (state, payload) {
+      state.setLocation = payload;
     }
   },
   actions: {
@@ -47,7 +52,7 @@ export default new Vuex.Store({
           longitude: 77.0369
         }
       };
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&APPID=425a5a589b1656880c69269cea9cf75f&units=metric`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${payload.lat}&lon=${payload.lon}&APPID=425a5a589b1656880c69269cea9cf75f&units=metric`;
       try {
         await fetch(url, {
           method: "GET",
@@ -74,7 +79,7 @@ export default new Vuex.Store({
       }
     },
 
-    getWeatherForecast: async function ({ commit }) {
+    getWeatherForecast: async function ({ commit }, payload) {
       const location = {
         // Honolulu sunny weather
         // coords: {
@@ -92,7 +97,7 @@ export default new Vuex.Store({
           longitude: 3.2095744
         }
       }
-      const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&appid=${this.state.appId}`;
+      const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${payload.lat}&lon=${payload.lon}&appid=${this.state.appId}`;
       try {
         await fetch(url, {
           method: "GET",
@@ -108,8 +113,34 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error);
       }
+    },
+
+    getLocation: async function ({ commit }) {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const payload = {
+              lat: position.coords.latitude,
+              lon: position.coords.longitude
+            };
+            commit("setLocation", payload);
+
+            resolve(payload)
+          },
+          error => {
+            console.error(error);
+            reject(error)
+          },
+          {
+            timeout: 1000,
+            maximumAge: 10000,
+            enableHighAccuracy: true
+          }
+        );
+      })
+
     }
-  },
-  modules: {
   }
+
+
 });

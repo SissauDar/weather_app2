@@ -41,11 +41,7 @@ export default {
   created() {},
 
   // #2 State gets rendered and is callable with computed function thats calls the store.
-  computed: {
-    getComputedTestFunction: function() {
-      return "hey";
-    }
-  },
+  computed: {},
 
   methods: {
     testMethod: function(event) {

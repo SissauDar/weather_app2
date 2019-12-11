@@ -37,9 +37,7 @@ export default {
 
   // Components are ready to get data.
   // # Action gets started with dispatch.
-  created() {
-    this.$store.dispatch("getWeatherForecast");
-  },
+  created() {},
 
   // #2 State gets rendered and is callable with computed function thats calls the store.
   computed: {},

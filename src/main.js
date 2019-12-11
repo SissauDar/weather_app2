@@ -6,6 +6,11 @@ import './registerServiceWorker'
 
 Vue.config.productionTip = false
 
+// navigator.geolocation.getCurrentPosition(position => {
+//   console.log(position.coords.latitude)
+//   console.log(position.coords.longitude)
+// })
+
 new Vue({
   router,
   store,

@@ -84,7 +84,7 @@ export default {
   // Components are ready to get data.
   // # Action gets started with dispatch.
   async created() {
-    // const cachedWeather = await idb.getItemById("getWeather");
+    const cachedCoordinates = await idb.getItemById("coordinates");
     // const cachedWeatherForecast = await idb.getItemById("getWeatherForecast");
     // console.log(cachedWeatherForecast);
 
@@ -95,19 +95,9 @@ export default {
         this.$store.dispatch("getWeatherForecast", response);
       },
       error => {
-        // if (cachedWeather && cachedWeatherForecast) {
-        //   this.$store.commit("setCurrentWeather", cachedWeather);
-        //   document.documentElement.style.setProperty(
-        //     "--background-color",
-        //     this.$store.getters.colors[cachedWeather.weather[0].main]
-        //   );
-        //   this.$store.commit(
-        //     "setCurrentWeatherForecast",
-        //     cachedWeatherForecast
-        //   );
-        // } else {
+        this.$store.dispatch("getWeather", cachedCoordinates);
+        this.$store.dispatch("getWeatherForecast", cachedCoordinates);
         console.error(`Foutje van de firma: ${error}`);
-        // }
       }
     );
   },

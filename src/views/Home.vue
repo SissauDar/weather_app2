@@ -103,7 +103,7 @@ export default {
           });
         // console.log(cachedCoordinates);
 
-        console.error(`Foutje van de firma: ${error}`);
+        console.info(`Foutje van de firma: ${error}`);
       }
     );
   },

@@ -59,7 +59,7 @@ export default {
                         dispatch('saveItem', data);
                     })
                     .catch(error => {
-                        console.log(error);
+                        console.info(error);
                     });
             } catch (error) {
                 console.error(error);

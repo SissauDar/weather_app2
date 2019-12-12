@@ -84,7 +84,6 @@ export default {
   // Components are ready to get data.
   // # Action gets started with dispatch.
   async created() {
-    const cachedCoordinates = await idb.getItemById("coordinates");
     // const cachedWeatherForecast = await idb.getItemById("getWeatherForecast");
     // console.log(cachedWeatherForecast);
 
@@ -95,8 +94,15 @@ export default {
         this.$store.dispatch("getWeatherForecast", response);
       },
       error => {
-        this.$store.dispatch("getWeather", cachedCoordinates);
-        this.$store.dispatch("getWeatherForecast", cachedCoordinates);
+        const cachedCoordinates = idb
+          .getItemById("coordinates")
+          .then(cachedCoordinates => {
+            console.log(cachedCoordinates);
+            this.$store.dispatch("getWeather", cachedCoordinates);
+            this.$store.dispatch("getWeatherForecast", cachedCoordinates);
+          });
+        // console.log(cachedCoordinates);
+
         console.error(`Foutje van de firma: ${error}`);
       }
     );

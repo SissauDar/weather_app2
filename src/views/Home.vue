@@ -59,7 +59,8 @@ import Container from "@/components/layout/Container";
 import CurrentWeatherData from "@/components/CurrentWeatherData";
 import CurrentWeatherImage from "@/components/CurrentWeatherImage";
 import ForecastSlider from "@/components/ForecastSlider";
-import { log } from "util";
+import idb from "../utils/idb";
+
 export default {
   name: "home",
 
@@ -83,15 +84,30 @@ export default {
   // Components are ready to get data.
   // # Action gets started with dispatch.
   async created() {
+    const cachedWeather = await idb.getItemById("getWeather");
+    const cachedWeatherForecast = await idb.getItemById("getWeatherForecast");
+    console.log(cachedWeatherForecast);
+
     this.$store.dispatch("getLocation").then(
       response => {
-        console.log(JSON.stringify(response));
         this.location = response;
         this.$store.dispatch("getWeather", response);
         this.$store.dispatch("getWeatherForecast", response);
       },
       error => {
-        console.error(`Foutje van de firma: ${error}`);
+        if (cachedWeather && cachedWeatherForecast) {
+          this.$store.commit("setCurrentWeather", cachedWeather);
+          document.documentElement.style.setProperty(
+            "--background-color",
+            this.$store.getters.colors[cachedWeather.weather[0].main]
+          );
+          this.$store.commit(
+            "setCurrentWeatherForecast",
+            cachedWeatherForecast
+          );
+        } else {
+          console.error(`Foutje van de firma: ${error}`);
+        }
       }
     );
   },
@@ -107,6 +123,16 @@ export default {
     getLocation: function() {
       console.log("nu pas" + this.$store.getters.location.lat);
       return this.$store.getters.location.lat;
+    },
+    getCachedData: function() {
+      console.log(this.$store.getters.cachedData);
+
+      return this.$store.getters.cachedData;
+    },
+    getCachedById: function() {
+      console.log(this.$store.getters.currentSelected);
+
+      return this.$store.getters.currentSelected;
     }
   },
 

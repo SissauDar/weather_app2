@@ -94,7 +94,7 @@ export default {
                         console.log(error);
                     });
             } catch (error) {
-                console.error(error);
+                console.info(error);
             }
         },
 
@@ -110,7 +110,7 @@ export default {
                         resolve(payload)
                     },
                     error => {
-                        console.error(error);
+                        console.info(error);
                         reject(error)
                     },
                     {

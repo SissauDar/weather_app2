@@ -2,7 +2,6 @@
 module.exports = {
     // ...other vue-cli plugin options...
     pwa: {
-        start_url: "weatherappschool.herokuapp.com/",
         manifestOptions: {
             name: '⛅ weather2 ⛅',
             short_name: '⛅'
